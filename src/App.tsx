@@ -25,13 +25,14 @@ function App() {
             Edit <code>src/App.tsx</code> and save to test <code>HMR</code>
           </p>
         </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
+        <div className='card'>
+            <button
+                className="btn btn-lg btn-outline btn-primary w-full lg:w-64 my-5"
+                onClick={() => setCount((count) => count + 1)}
+                >
+                Count is {count}
+            </button>
+        </div>
       </section>
 
       <div className="ticks"></div>
