@@ -4,8 +4,12 @@ import viteLogo from "./assets/vite.svg";
 import heroImg from "./assets/hero.png";
 import "./App.css";
 
-function App() {
-  const [count, setCount] = useState(0);
+type AppProps = {
+    initialCountValue: number;
+}
+
+const App: React.FC<AppProps> = ({initialCountValue}) => {
+  const [count, setCount] = useState(initialCountValue);
 
   return (
     <div className="p-3"
