@@ -2,8 +2,7 @@ import "./App.css";
 import { HashRouter, Routes, Route } from "react-router";
 import { Home } from './Home.tsx';
 import { Setup } from './Setup.tsx'
-
-const Play = () => <h1>Play</h1>;
+import { Play } from './Play.tsx'
 
 const App = () => {
   return (
