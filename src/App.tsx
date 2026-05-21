@@ -3,18 +3,67 @@ import { HashRouter, Routes, Route } from "react-router";
 import { Home } from './Home.tsx';
 import { Setup } from './Setup.tsx'
 import { Play } from './Play.tsx'
+import { getGeneralFacts, type GameResult } from "./GameResults.ts";
+import { useState } from "react";
+
+const dummyGameResults: GameResult[] = [
+    {
+        winner: "Harry",
+        players: [
+            "Harry",
+            "Hermione",
+            "Ron",
+        ],
+        start: "2026-02-01T18:53:59.078Z",
+        end: "2026-02-01T19:27:59.078Z",
+    },
+    {
+        winner: "Hermione",
+        players: [
+            "Harry",
+            "Hermione",
+            "Ron",
+        ],
+        start: "2026-01-15T22:07:59.078Z",
+        end: "2026-01-15T23:01:59.078Z",
+    },  
+];
 
 const App = () => {
-  return (
-    <div>
-      <HashRouter>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/setup" element={<Setup />} />
-          <Route path="/play" element={<Play />} />
-        </Routes>
-      </HashRouter>
-    </div>
+
+    // React hooks
+    const [gameResults, setGameResults] = useState(dummyGameResults);
+    // const [gameResults, setGameResults] = useState([]);
+
+    //Calculate state from game results
+    const addNewGameResult = (newGameResult: GameResult) => setGameResults(
+        [...gameResults, newGameResult]
+    )
+
+    // Retrun JSX with a router and routes for Home, Setup, and Play. Pass general facts to Home.
+    return (
+        <div>
+        <HashRouter>
+            <Routes>
+            <Route 
+                path="/" 
+                element={
+                    <Home
+                        genreralFacts={getGeneralFacts(gameResults)} 
+                    />
+                }
+            />
+            <Route path="/setup" element={<Setup />} />
+            <Route 
+                path="/play" 
+                element={
+                    <Play
+                        addNewGameResult={addNewGameResult} 
+                />} 
+            />
+            </Routes>
+        </HashRouter>
+        </div>
   );
 };
 
