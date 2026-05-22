@@ -3,7 +3,7 @@ import { HashRouter, Routes, Route } from "react-router";
 import { Home } from './Home.tsx';
 import { Setup } from './Setup.tsx'
 import { Play } from './Play.tsx'
-import { getGeneralFacts, getLeaderboardEntry, type GameResult } from "./GameResults.ts";
+import { getGeneralFacts, getLeaderboard, type GameResult } from "./GameResults.ts";
 import { useState } from "react";
 
 const dummyGameResults: GameResult[] = [
@@ -32,8 +32,8 @@ const dummyGameResults: GameResult[] = [
 const App = () => {
 
     // React hooks
-    const [gameResults, setGameResults] = useState(dummyGameResults);
-    // const [gameResults, setGameResults] = useState([]);
+    // const [gameResults, setGameResults] = useState(dummyGameResults);
+    const [gameResults, setGameResults] = useState<GameResult[]>([]);
 
     //Calculate state from game results
     const addNewGameResult = (newGameResult: GameResult) => setGameResults(
@@ -50,6 +50,7 @@ const App = () => {
                 element={
                     <Home
                         generalFacts={getGeneralFacts(gameResults)}
+                        leaderboard={getLeaderboard(gameResults)}
                     />
                 }
             />

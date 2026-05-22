@@ -75,6 +75,41 @@ export const getGeneralFacts = (games: GameResult[]): GeneralFacts => {
     };
 };
 
+export const getLeaderboard = (
+    games: GameResult[]
+): LeaderboardEntry[] => getPreviousPlayers(games)
+    .map(
+        x => ({
+            ...getLeaderboardEntry(
+                games,
+                x,
+            )
+        })
+    )
+    .sort(
+        (a, b) => a.avg == b.avg
+            ? a.wins == 0 && b.wins == 0
+                ? (a.wins + a.losses) - (b.wins + b.losses)
+                : (b.wins + b.losses) - (a.wins + a.losses)
+            : Number.parseFloat(b.avg) - Number.parseFloat(a.avg)
+    )
+;
+
+// Helper functions
+
+const formatGameDuration = durationFormatter<string>();
+
+const formatLastPlayed = durationFormatter<string>(
+    {
+        allowMultiples: [
+            "years",
+            "months",
+            "days",
+        ]
+    }
+
+);
+
 export const getLeaderboardEntry = (
     games: GameResult[],
     player: string,
@@ -104,17 +139,19 @@ export const getLeaderboardEntry = (
     };
 };
 
-// Helper functions
+const getPreviousPlayers = (
+    games: GameResult[]
+) => games 
+    .flatMap(
+        x => x.players
+    )
+    .filter(
+        (x, i, a) => i == a.findIndex(
+            y => y == x
+        )
+    )
+    .sort(
+        (a, b) => a.localeCompare(b)
+    )
+;
 
-const formatGameDuration = durationFormatter<string>();
-
-const formatLastPlayed = durationFormatter<string>(
-    {
-        allowMultiples: [
-            "years",
-            "months",
-            "days",
-        ]
-    }
-
-);

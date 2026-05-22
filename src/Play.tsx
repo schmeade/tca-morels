@@ -23,7 +23,6 @@ export const Play: React.FC<PlayProps> = ({addNewGameResult}) => {
                         players: [
                             "Harry",
                             "Hermione",
-                            "Ron"
                         ],
                         start: startTimeStamp,
                         end: new Date().toISOString()
