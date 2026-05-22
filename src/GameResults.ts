@@ -1,3 +1,5 @@
+import { durationFormatter } from "human-readable";
+
 //
 // More getting-started/data-experiments
 //
@@ -64,36 +66,53 @@ export const getGeneralFacts = (games: GameResult[]): GeneralFacts => {
     return {
         lastPlayed: `${mostRecentlyPlayedInMilliseconds / 1000 / 60 / 60/ 24} days ago`,
         totalGames: games.length,
-        shortestGame: `${Math.min(...gameDurationsInMilliseconds) / 1000 / 60} minutes`,
-        longestGame: `${Math.max(...gameDurationsInMilliseconds) / 1000 / 60} minutes`,
+        shortestGame: formatGameDuration(
+            Math.min(...gameDurationsInMilliseconds)),
+        longestGame: formatGameDuration(
+            Math.max(...gameDurationsInMilliseconds)),
     };
 };
 
-export const getLeaderboardEntry = (
-    games: GameResult[],
-    player: string,
-): LeaderboardEntry => {
+// export const getLeaderboardEntry = (
+//     games: GameResult[],
+//     player: string,
+// ): LeaderboardEntry => {
 
-    const countOfWins = games.filter(
-        x => x.winner == player
-    ).length;
+//     const countOfWins = games.filter(
+//         x => x.winner == player
+//     ).length;
 
-    const totalGames = games.filter(
-        x => x.players.some(
-            y => y == player
-        )
-    ).length;
+//     const totalGames = games.filter(
+//         x => x.players.some(
+//             y => y == player
+//         )
+//     ).length;
 
-    const avg = totalGames > 0
-        ? countOfWins / totalGames
-        : 0
-    ;
+//     const avg = totalGames > 0
+//         ? countOfWins / totalGames
+//         : 0
+//     ;
 
-    return {
-        wins: countOfWins,
-        losses: totalGames - countOfWins,
-        avg: `${avg.toFixed(3)}`,
-        name: player
+//     return {
+//         wins: countOfWins,
+//         losses: totalGames - countOfWins,
+//         avg: `${avg.toFixed(3)}`,
+//         name: player
 
-    };
-};
+//     };
+// };
+
+// Helper functions
+
+const formatGameDuration = durationFormatter<string>();
+
+const formatLastPlayed = durationFormatter<string>(
+    {
+        allowMultiples: [
+            "years",
+            "months",
+            "days",
+        ]
+    }
+
+);

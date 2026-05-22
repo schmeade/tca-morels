@@ -49,9 +49,7 @@ const App = () => {
                 path="/" 
                 element={
                     <Home
-                        genreralFacts={getGeneralFacts(gameResults)}
-                        leaderBoardEntries={gameResults.map((game) => 
-                            getLeaderboardEntry(gameResults, game.winner))}
+                        generalFacts={getGeneralFacts(gameResults)}
                     />
                 }
             />
