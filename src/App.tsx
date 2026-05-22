@@ -3,7 +3,7 @@ import { HashRouter, Routes, Route } from "react-router";
 import { Home } from './Home.tsx';
 import { Setup } from './Setup.tsx'
 import { Play } from './Play.tsx'
-import { getGeneralFacts, type GameResult } from "./GameResults.ts";
+import { getGeneralFacts, getLeaderboardEntry, type GameResult } from "./GameResults.ts";
 import { useState } from "react";
 
 const dummyGameResults: GameResult[] = [
@@ -49,7 +49,9 @@ const App = () => {
                 path="/" 
                 element={
                     <Home
-                        genreralFacts={getGeneralFacts(gameResults)} 
+                        genreralFacts={getGeneralFacts(gameResults)}
+                        leaderBoardEntries={gameResults.map((game) => 
+                            getLeaderboardEntry(gameResults, game.winner))}
                     />
                 }
             />

@@ -2,7 +2,8 @@ import { useNavigate } from "react-router";
 import type { GeneralFacts } from "./GameResults";
 
 type HomeProps = {
-    genreralFacts: GeneralFacts    
+    genreralFacts: GeneralFacts,
+    leaderBoardEntries: any[],   
 };
 
 export const Home: React.FC<HomeProps> = (
