@@ -28,7 +28,7 @@ export type GameResult = {
     end: string;
 };
 
-type LeaderboardEntry = {
+export type LeaderboardEntry = {
     wins: number;
     losses: number;
     avg: string;
@@ -64,7 +64,9 @@ export const getGeneralFacts = (games: GameResult[]): GeneralFacts => {
     );
 
     return {
-        lastPlayed: `${mostRecentlyPlayedInMilliseconds / 1000 / 60 / 60/ 24} days ago`,
+        lastPlayed: `${formatLastPlayed(
+            mostRecentlyPlayedInMilliseconds
+        )} ago`,
         totalGames: games.length,
         shortestGame: formatGameDuration(
             Math.min(...gameDurationsInMilliseconds)),
@@ -73,34 +75,34 @@ export const getGeneralFacts = (games: GameResult[]): GeneralFacts => {
     };
 };
 
-// export const getLeaderboardEntry = (
-//     games: GameResult[],
-//     player: string,
-// ): LeaderboardEntry => {
+export const getLeaderboardEntry = (
+    games: GameResult[],
+    player: string,
+): LeaderboardEntry => {
 
-//     const countOfWins = games.filter(
-//         x => x.winner == player
-//     ).length;
+    const countOfWins = games.filter(
+        x => x.winner == player
+    ).length;
 
-//     const totalGames = games.filter(
-//         x => x.players.some(
-//             y => y == player
-//         )
-//     ).length;
+    const totalGames = games.filter(
+        x => x.players.some(
+            y => y == player
+        )
+    ).length;
 
-//     const avg = totalGames > 0
-//         ? countOfWins / totalGames
-//         : 0
-//     ;
+    const avg = totalGames > 0
+        ? countOfWins / totalGames
+        : 0
+    ;
 
-//     return {
-//         wins: countOfWins,
-//         losses: totalGames - countOfWins,
-//         avg: `${avg.toFixed(3)}`,
-//         name: player
+    return {
+        wins: countOfWins,
+        losses: totalGames - countOfWins,
+        avg: `${avg.toFixed(3)}`,
+        name: player
 
-//     };
-// };
+    };
+};
 
 // Helper functions
 

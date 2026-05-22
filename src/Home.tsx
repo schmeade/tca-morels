@@ -3,7 +3,7 @@ import type { GeneralFacts } from "./GameResults";
 
 type HomeProps = {
     generalFacts: GeneralFacts,
-    leaderBoardEntries: any[],   
+    // leaderBoardEntries: any[],   
 };
 
 export const Home: React.FC<HomeProps> = ({
